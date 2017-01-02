@@ -1,12 +1,17 @@
 {
   "name": "purescript-minimist",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "output"
   ],
+  "repository": {
+      "type": "git",
+      "url": "git://github.com/mcoffin/purescript-minimist.git"
+  },
   "dependencies": {
     "purescript-prelude": "^2.1.0",
     "purescript-console": "^2.0.0",
