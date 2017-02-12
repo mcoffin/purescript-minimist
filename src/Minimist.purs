@@ -12,10 +12,11 @@ module Minimist
     ) where
 
 import Prelude
+import Control.Alt ((<|>))
 import Control.Monad.Except (runExcept)
-import Data.Either (Either(..), either, fromRight)
-import Data.Foreign (Foreign, isArray, toForeign)
-import Data.Foreign.Class (class IsForeign, read, readEitherL)
+import Data.Either (Either, either, fromRight)
+import Data.Foreign (Foreign, toForeign)
+import Data.Foreign.Class (class AsForeign, class IsForeign, read, write)
 import Data.Functor.Contravariant ((>#<))
 import Data.Options (Option, Options, opt, options)
 import Data.StrMap (StrMap)
@@ -41,7 +42,7 @@ aliases = opt "alias"
 
 -- | Mapping of strings to default argument values
 defaults :: Option MinimistOptions (StrMap Arg)
-defaults = opt "default" >#< (<$>) toForeignArg
+defaults = opt "default" >#< (<$>) write
 
 -- | When `true`, argument parsing will stop at the first non-flag
 stopEarly :: Option MinimistOptions Boolean
@@ -62,25 +63,34 @@ foreign import parseArgsForeign :: Array String -> Foreign -> StrMap Foreign
 
 -- | Data type representing the value of an argument in `argv`
 data Arg = ArgString String
-         | ArgMulti (Array String)
          | ArgFlag Boolean
-
-toForeignArg :: Arg -> Foreign
-toForeignArg (ArgString s) = toForeign s
-toForeignArg (ArgMulti a) = toForeign a
-toForeignArg (ArgFlag b) = toForeign b
+         | ArgInt Int
+         | ArgNum Number
+         | ArgArray (Array Arg)
 
 derive instance eqArg :: Eq Arg
 
 instance showArg :: Show Arg where
     show (ArgString str) = str
-    show (ArgMulti multi) = show multi
     show (ArgFlag flag) = show flag
+    show (ArgInt i) = show i
+    show (ArgNum n) = show n
+    show (ArgArray a) = show a
 
 instance argIsForeign :: IsForeign Arg where
-    read value
-        | isArray value = ArgMulti <$> read value
-        | otherwise = readEitherL value <#> either ArgString ArgFlag
+    read value =
+        (ArgString <$> read value) <|>
+        (ArgFlag <$> read value) <|>
+        (ArgInt <$> read value) <|>
+        (ArgNum <$> read value) <|>
+        (ArgArray <$> read value)
+
+instance argAsForeign :: AsForeign Arg where
+    write (ArgString s) = write s
+    write (ArgFlag b) = write b
+    write (ArgInt i) = write i
+    write (ArgNum n) = write n
+    write (ArgArray a) = write a
 
 -- | Parse arguments with a set of minimist options into an `argv` representation,
 -- | mapping argument names to `Arg` values.
