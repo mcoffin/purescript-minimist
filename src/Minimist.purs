@@ -15,7 +15,7 @@ import Prelude
 import Control.Alt ((<|>))
 import Control.Monad.Except (runExcept)
 import Data.Either (Either, either, fromRight)
-import Data.Foreign (Foreign, toForeign)
+import Data.Foreign (Foreign, toForeign, unsafeFromForeign)
 import Data.Foreign.Class (class AsForeign, class IsForeign, read, write)
 import Data.Functor.Contravariant ((>#<))
 import Data.Options (Option, Options, opt, options)
@@ -59,7 +59,7 @@ splitOnDoubleDash = opt "--"
 unknown :: Option MinimistOptions (String -> Boolean)
 unknown = opt "unknown"
 
-foreign import parseArgsForeign :: Array String -> Foreign -> StrMap Foreign
+foreign import parseArgsForeign :: Array String -> Foreign -> Foreign
 
 -- | Data type representing the value of an argument in `argv`
 data Arg = ArgString String
@@ -95,6 +95,6 @@ instance argAsForeign :: AsForeign Arg where
 -- | Parse arguments with a set of minimist options into an `argv` representation,
 -- | mapping argument names to `Arg` values.
 parseArgs :: Array String -> Options MinimistOptions -> StrMap Arg
-parseArgs args opts = (<$>) foreignToArg (parseArgsForeign args $ options opts) where
+parseArgs args opts = foreignToArg <$> (unsafeFromForeign $ parseArgsForeign args $ options opts) where
     foreignToArg :: Foreign -> Arg
     foreignToArg value = unsafePartial fromRight (runExcept $ read value)
