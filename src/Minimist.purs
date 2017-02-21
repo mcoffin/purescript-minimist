@@ -9,7 +9,6 @@ module Minimist
     , splitOnDoubleDash
     , unknown
     , parseArgs
-    , parseArgsForeign
     ) where
 
 import Prelude
