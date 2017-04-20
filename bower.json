@@ -9,23 +9,24 @@
     "output"
   ],
   "repository": {
-      "type": "git",
-      "url": "git://github.com/mcoffin/purescript-minimist.git"
+    "type": "git",
+    "url": "git://github.com/mcoffin/purescript-minimist.git"
   },
   "dependencies": {
-    "purescript-prelude": "^2.1.0",
-    "purescript-console": "^2.0.0",
-    "purescript-maps": "^2.0.2",
-    "purescript-foreign": "^3.0.1",
-    "purescript-options": "^2.0.0",
+    "purescript-prelude": "^3.0.0",
+    "purescript-console": "^3.0.0",
+    "purescript-maps": "^3.0.0",
+    "purescript-foreign": "^4.0.0",
+    "purescript-options": "^3.0.0",
     "purescript-partial": "^1.2.0",
-    "purescript-transformers": "^2.0.2",
-    "purescript-either": "^2.1.0",
-    "purescript-contravariant": "^2.0.0"
+    "purescript-transformers": "^3.2.0",
+    "purescript-either": "^3.0.0",
+    "purescript-contravariant": "^3.0.0",
+    "purescript-foreign-generic": "^4.1.0"
   },
   "devDependencies": {
-    "purescript-psci-support": "^2.0.0",
-    "purescript-spec": "^0.10.0",
-    "purescript-tuples": "^3.1.0"
+    "purescript-psci-support": "^3.0.0",
+    "purescript-spec": "^0.13.0",
+    "purescript-tuples": "^4.0.0"
   }
 }

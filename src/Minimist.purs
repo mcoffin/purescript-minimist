@@ -17,7 +17,7 @@ import Control.Alt ((<|>))
 import Control.Monad.Except (runExcept)
 import Data.Either (Either, either, fromRight)
 import Data.Foreign (Foreign, toForeign, unsafeFromForeign)
-import Data.Foreign.Class (class AsForeign, class IsForeign, read, write)
+import Data.Foreign.Class (class Decode, class Encode, decode, encode)
 import Data.Functor.Contravariant ((>#<))
 import Data.Options (Option, Options, opt, options)
 import Data.StrMap (StrMap)
@@ -43,7 +43,7 @@ aliases = opt "alias"
 
 -- | Mapping of strings to default argument values
 defaults :: Option MinimistOptions (StrMap Arg)
-defaults = opt "default" >#< (<$>) write
+defaults = opt "default" >#< (<$>) encode
 
 -- | When `true`, argument parsing will stop at the first non-flag
 stopEarly :: Option MinimistOptions Boolean
@@ -78,24 +78,24 @@ instance showArg :: Show Arg where
     show (ArgNum n) = show n
     show (ArgArray a) = show a
 
-instance argIsForeign :: IsForeign Arg where
-    read value =
-        (ArgString <$> read value) <|>
-        (ArgFlag <$> read value) <|>
-        (ArgInt <$> read value) <|>
-        (ArgNum <$> read value) <|>
-        (ArgArray <$> read value)
+instance argDecode :: Decode Arg where
+    decode value =
+        (ArgString <$> decode value) <|>
+        (ArgFlag <$> decode value) <|>
+        (ArgInt <$> decode value) <|>
+        (ArgNum <$> decode value) <|>
+        (ArgArray <$> decode value)
 
-instance argAsForeign :: AsForeign Arg where
-    write (ArgString s) = write s
-    write (ArgFlag b) = write b
-    write (ArgInt i) = write i
-    write (ArgNum n) = write n
-    write (ArgArray a) = write a
+instance argEncode :: Encode Arg where
+    encode (ArgString s) = encode s
+    encode (ArgFlag b) = encode b
+    encode (ArgInt i) = encode i
+    encode (ArgNum n) = encode n
+    encode (ArgArray a) = encode a
 
 -- | Parse arguments with a set of minimist options into an `argv` representation,
 -- | mapping argument names to `Arg` values.
 parseArgs :: Array String -> Options MinimistOptions -> StrMap Arg
 parseArgs args opts = foreignToArg <$> (unsafeFromForeign $ parseArgsForeign args $ options opts) where
     foreignToArg :: Foreign -> Arg
-    foreignToArg value = unsafePartial fromRight (runExcept $ read value)
+    foreignToArg value = unsafePartial fromRight (runExcept $ decode value)
