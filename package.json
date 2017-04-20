@@ -4,7 +4,8 @@
   "scripts": {
     "pulp": "pulp",
     "build": "pulp build",
-    "test": "pulp test"
+    "test": "pulp test",
+    "bower": "bower"
   },
   "devDependencies": {
     "bower": "^1.8.0",

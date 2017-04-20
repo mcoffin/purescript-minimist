@@ -1,14 +1,12 @@
 language: node_js
 node_js:
-  - "6"
-before_install:
-  - npm install -g bower pulp purescript
+  - "7"
 install:
   - npm install
-  - bower install
+  - npm run-script bower i -- --allow-root
 script:
-  - pulp build
-  - pulp test
+  - npm run-script pulp build
+  - npm test
 after_success:
   - >-
     test $TRAVIS_TAG &&
