@@ -1,7 +1,7 @@
 # purescript-minimist
 
 [![Build Status](https://travis-ci.org/mcoffin/purescript-minimist.svg?branch=master)](https://travis-ci.org/mcoffin/purescript-minimist)
-![Bower](https://img.shields.io/bower/v/purescript-minimist.svg)
+[![Latest release](https://img.shields.io/github/tag/mcoffin/purescript-minimist.svg)](https://github.com/mcoffin/purescript-minimist/releases)
 [![Issues Ready](https://img.shields.io/waffle/label/mcoffin/purescript-minimist/ready.svg)](https://waffle.io/mcoffin/purescript-minimist)
 [![Issues In Progress](https://img.shields.io/waffle/label/mcoffin/purescript-minimist/in%20progress.svg)](https://waffle.io/mcoffin/purescript-minimist)
 
