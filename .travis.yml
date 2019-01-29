@@ -1,11 +1,11 @@
 language: node_js
 node_js:
-  - "7"
+  - node
 install:
   - npm install
-  - npm run-script bower i -- --allow-root
+  - npm run-script psc-package install
 script:
-  - npm run-script pulp build
+  - npm run-script build
   - npm test
 after_success:
   - >-

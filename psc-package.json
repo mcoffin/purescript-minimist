@@ -6,6 +6,7 @@
     "console",
     "contravariant",
     "either",
+    "effect",
     "foreign",
     "foreign-generic",
     "foreign-object",
@@ -13,6 +14,7 @@
     "ordered-collections",
     "partial",
     "prelude",
-    "transformers"
+    "transformers",
+    "spec"
   ]
 }
