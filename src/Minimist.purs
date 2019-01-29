@@ -16,11 +16,11 @@ import Prelude
 import Control.Alt ((<|>))
 import Control.Monad.Except (runExcept)
 import Data.Either (Either, either, fromRight)
-import Data.Foreign (Foreign, toForeign, unsafeFromForeign)
-import Data.Foreign.Class (class Decode, class Encode, decode, encode)
+import Foreign (Foreign, unsafeToForeign, unsafeFromForeign)
+import Foreign.Class (class Decode, class Encode, decode, encode)
+import Foreign.Object (Object)
 import Data.Functor.Contravariant ((>#<))
 import Data.Options (Option, Options, opt, options)
-import Data.StrMap (StrMap)
 import Partial.Unsafe (unsafePartial)
 
 -- | Phantom data type of options for the minimist parser
@@ -35,14 +35,14 @@ interpretAsStrings = opt "strings"
 -- | with `--` that don't contain an equals sign should be
 -- | interpreted as booleans
 interpretAsBooleans :: Option MinimistOptions (Either Boolean (Array String))
-interpretAsBooleans = opt "boolean" >#< either toForeign toForeign
+interpretAsBooleans = opt "boolean" >#< either unsafeToForeign unsafeToForeign
 
 -- | Mapping of strings to a list of aliases for that option
-aliases :: Option MinimistOptions (StrMap (Array String))
+aliases :: Option MinimistOptions (Object (Array String))
 aliases = opt "alias"
 
 -- | Mapping of strings to default argument values
-defaults :: Option MinimistOptions (StrMap Arg)
+defaults :: Option MinimistOptions (Object Arg)
 defaults = opt "default" >#< (<$>) encode
 
 -- | When `true`, argument parsing will stop at the first non-flag
@@ -95,7 +95,7 @@ instance argEncode :: Encode Arg where
 
 -- | Parse arguments with a set of minimist options into an `argv` representation,
 -- | mapping argument names to `Arg` values.
-parseArgs :: Array String -> Options MinimistOptions -> StrMap Arg
+parseArgs :: Array String -> Options MinimistOptions -> Object Arg
 parseArgs args opts = foreignToArg <$> (unsafeFromForeign $ parseArgsForeign args $ options opts) where
     foreignToArg :: Foreign -> Arg
     foreignToArg value = unsafePartial fromRight (runExcept $ decode value)

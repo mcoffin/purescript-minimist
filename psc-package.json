@@ -1,0 +1,18 @@
+{
+  "name": "purescript-minimist",
+  "set": "psc-0.12.2",
+  "source": "https://github.com/purescript/package-sets.git",
+  "depends": [
+    "console",
+    "contravariant",
+    "either",
+    "foreign",
+    "foreign-generic",
+    "foreign-object",
+    "options",
+    "ordered-collections",
+    "partial",
+    "prelude",
+    "transformers"
+  ]
+}
