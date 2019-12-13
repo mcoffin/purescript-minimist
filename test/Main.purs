@@ -1,9 +1,14 @@
-module Test.Main where
+module Test.Main
+    ( main
+    ) where
 
 import Prelude
 import Data.Either (Either(..))
 import Data.Options ((:=))
 import Effect (Effect)
+import Effect.Aff ( Aff
+                  , launchAff_
+                  )
 import Foreign.Object as StrMap
 import Data.Tuple (Tuple(..))
 import Minimist (Arg(..), aliases, defaults, splitOnDoubleDash, interpretAsBooleans, stopEarly, parseArgs)
@@ -13,7 +18,10 @@ import Test.Spec.Reporter.Console (consoleReporter)
 import Test.Spec.Runner (run)
 
 main :: Effect Unit
-main = run [consoleReporter] do
+main = launchAff_ main'
+
+main' :: Aff Unit
+main' = run [consoleReporter] do
     describe "purescript-minimist" do
         describe "Minimist" do
             it "should parse nothing" do
