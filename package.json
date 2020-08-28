@@ -10,7 +10,7 @@
   },
   "devDependencies": {
     "bower": "^1.8.0",
-    "minimist": "^1.2.0",
+    "minimist": "^1.2.3",
     "pulp": "^12.3.1",
     "purescript": "0.12.2",
     "psc-package-bin-simple": "^3.0.1"
