@@ -1,0 +1,13 @@
+stages:
+  - build
+test:
+  stage: build
+  image: node:16-alpine
+  only:
+    - master
+    - merge_requests
+    - tags
+  before_script:
+    - npm i
+  script:
+    - npm test
