@@ -1,6 +1,6 @@
 {
   "name": "purescript-minimist",
-  "set": "psc-0.13.8",
+  "set": "psc-0.14.1-20210516",
   "source": "https://github.com/purescript/package-sets.git",
   "depends": [
     "console",
