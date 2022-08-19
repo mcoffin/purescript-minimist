@@ -8,11 +8,7 @@
     "bower": "bower",
     "psc-package": "psc-package"
   },
-  "devDependencies": {
-    "bower": "^1.8.0",
-    "minimist": "^1.2.0",
-    "psc-package": "^4.0.1",
-    "pulp": "^15.0.0",
-    "purescript": "0.14.1"
+  "dependencies": {
+    "minimist": "^1.2.6"
   }
 }

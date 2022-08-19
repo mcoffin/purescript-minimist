@@ -6,3 +6,4 @@
 /.psa*
 /docs/
 /generated-docs/
+/package-lock.json

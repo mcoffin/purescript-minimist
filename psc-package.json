@@ -1,20 +1,17 @@
 {
   "name": "purescript-minimist",
-  "set": "psc-0.14.1-20210516",
+  "set": "psc-0.15.4",
   "source": "https://github.com/purescript/package-sets.git",
   "depends": [
-    "console",
+    "argonaut",
+    "argonaut-core",
+    "argonaut-generic",
+    "argonaut-codecs",
     "contravariant",
     "either",
-    "effect",
     "foreign",
-    "foreign-generic",
     "foreign-object",
     "options",
-    "ordered-collections",
-    "partial",
-    "prelude",
-    "transformers",
-    "spec"
+    "prelude"
   ]
 }

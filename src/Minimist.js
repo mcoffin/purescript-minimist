@@ -2,8 +2,8 @@
 
 // module Minimist
 
-exports.parseArgsForeign = function parseArgsForeign(args) {
-    return function (opts) {
-        return require("minimist")(args, opts);
-    };
-};
+import minimist from 'minimist';
+
+export function parseArgsForeign(opts, args) {
+    return minimist(args, opts);
+}
