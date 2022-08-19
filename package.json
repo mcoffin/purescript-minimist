@@ -1,14 +1,10 @@
 {
   "name": "purescript-minimist",
   "private": true,
-  "scripts": {
-    "pulp": "pulp",
-    "build": "pulp --psc-package build",
-    "test": "pulp --psc-package test",
-    "bower": "bower",
-    "psc-package": "psc-package"
-  },
   "dependencies": {
     "minimist": "^1.2.6"
+  },
+  "devDependencies": {
+    "purescript": "^0.15.4"
   }
 }
